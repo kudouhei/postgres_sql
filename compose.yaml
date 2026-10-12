@@ -1,0 +1,21 @@
+name: postgre-sql-lab
+
+services:
+  db:
+    image: postgres:18
+    environment:
+      POSTGRES_DB: interview_lab
+      POSTGRES_USER: learner
+      POSTGRES_PASSWORD: local_learning_only
+    ports:
+      - "127.0.0.1:5434:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "learner", "-d", "interview_lab"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+volumes:
+  pgdata:
